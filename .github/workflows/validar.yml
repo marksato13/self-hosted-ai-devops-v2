@@ -1,0 +1,23 @@
+name: Validar
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repositorio:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar herramientas
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Analizar scripts
+        run: shellcheck scripts/*.sh
+      - name: Validar Compose
+        run: docker compose --env-file .env.example -f infra/docker-compose.yml config -q
+      - name: Verificar estructura y enlaces
+        run: ./scripts/verificar.sh

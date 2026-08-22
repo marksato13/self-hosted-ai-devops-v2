@@ -1,0 +1,67 @@
+name: self-hosted-agent-platform
+
+services:
+  omniroute:
+    # Imagen 3.8.49 previamente verificada; amd64 fijada por digest.
+    image: diegosouzapw/omniroute@sha256:2bf79cf167478bf283c633ffef2e1e26ba746882e7267fab9320c09df56e8b57
+    restart: unless-stopped
+    stop_grace_period: 40s
+    environment:
+      NODE_ENV: production
+      PORT: "20128"
+      HOSTNAME: 0.0.0.0
+      DATA_DIR: /app/data
+      JWT_SECRET: ${OMNIROUTE_JWT_SECRET}
+      API_KEY_SECRET: ${OMNIROUTE_API_KEY_SECRET}
+      STORAGE_ENCRYPTION_KEY: ${OMNIROUTE_STORAGE_ENCRYPTION_KEY}
+      STORAGE_ENCRYPTION_KEY_VERSION: v1
+      INITIAL_PASSWORD: ${OMNIROUTE_INITIAL_PASSWORD}
+      OMNIROUTE_MEMORY_MB: "1024"
+      OMNI_MAX_CONCURRENT_CONNECTIONS: "20"
+      INPUT_SANITIZER_ENABLED: "true"
+      INPUT_SANITIZER_MODE: block
+      INPUT_SANITIZER_BLOCK_THRESHOLD: high
+      PII_REDACTION_ENABLED: "false"
+      PII_RESPONSE_SANITIZATION: "false"
+      AUTH_COOKIE_SECURE: "false"
+      TZ: ${TZ:-America/Lima}
+    volumes:
+      - omniroute-data:/app/data
+    ports:
+      - "127.0.0.1:${OMNIROUTE_PORT:-20128}:20128"
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD", "node", "healthcheck.mjs"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  agent-canvas:
+    image: ${OPENHANDS_IMAGE:-ghcr.io/openhands/agent-canvas:latest}
+    restart: unless-stopped
+    depends_on:
+      omniroute:
+        condition: service_healthy
+    command: ["--public"]
+    environment:
+      PORT: "8000"
+      LOCAL_BACKEND_API_KEY: ${LOCAL_BACKEND_API_KEY}
+      OH_SECRET_KEY: ${OH_SECRET_KEY}
+      TZ: ${TZ:-America/Lima}
+    volumes:
+      - ${OPENHANDS_DATA_DIR}:/home/openhands/.openhands
+      - ${PROJECTS_DIR}:/projects
+    ports:
+      - "127.0.0.1:${OPENHANDS_PORT:-8000}:8000"
+    security_opt: ["no-new-privileges:true"]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+volumes:
+  omniroute-data:

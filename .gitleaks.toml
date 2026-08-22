@@ -1,0 +1,4 @@
+# Usa todas las reglas oficiales. No se excluyen directorios completos:
+# la documentación y las plantillas también pueden filtrar credenciales reales.
+[extend]
+useDefault = true

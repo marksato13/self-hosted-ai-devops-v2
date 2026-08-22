@@ -1,0 +1,41 @@
+# Secretos y configuración privada
+.env
+.env.*
+!.env.example
+secrets/
+*.key
+*.pem
+*.p12
+credentials.json
+
+# Estado persistente local
+.openhands/
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs y temporales
+logs/
+*.log
+*.tmp
+*.bak
+tmp/
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Dependencias y artefactos
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+build/
