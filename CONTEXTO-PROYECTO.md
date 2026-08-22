@@ -12,7 +12,7 @@ Construir una plataforma personal de agentes IA autohospedada, operada desde una
 - Docker delimita los workspaces accesibles.
 - El acceso remoto es privado mediante túnel SSH o Tailscale.
 - No hay Telegram, OpenClaw ni bot de mensajería.
-- No se despliegan Open SWE, Cyrus, Opendray o SWE-agent como plataformas paralelas. Sus patrones pueden estudiarse más adelante.
+- No se despliegan Open SWE, Cyrus, Opendray o SWE-agent como plataformas paralelas. Los patrones y las decisiones de adopción están en [docs/proyectos-referencia.md](docs/proyectos-referencia.md) y [docs/patrones-adoptados.md](docs/patrones-adoptados.md).
 - El gasto adicional objetivo es USD 0, sin asumir que una ruta externa sea gratuita o ilimitada.
 - Una persona aprueba merges, despliegues, `apply` y cualquier acción destructiva.
 
