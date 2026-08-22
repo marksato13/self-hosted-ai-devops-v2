@@ -53,12 +53,14 @@ Ambos puertos escuchan solo en loopback.
 ## Configuración inicial
 
 1. En OmniRoute, inicia sesión con `OMNIROUTE_INITIAL_PASSWORD`.
-2. Conecta únicamente proveedores autorizados y revisa si sus rutas son gratuitas.
+2. Conecta un único proveedor autorizado y comprueba su cuota y precio vigentes.
 3. Crea una API key local de OmniRoute.
 4. En Agent Canvas abre **Settings → LLM → Advanced**.
-5. Configura el modelo y endpoint descritos en [modelos remotos](modelos-remotos.md).
+5. Configura el ID exacto del modelo, la API key local y la URL interna `http://omniroute:20128/v1` como se describe en [modelos remotos](modelos-remotos.md).
 6. Abre como workspace una carpeta ubicada bajo `/projects`.
 7. Ejecuta primero una tarea de lectura o un cambio descartable.
+
+No uses `localhost` como URL base en Canvas: dentro del contenedor, ese nombre apunta al propio Canvas y no a OmniRoute.
 
 ## Detener y actualizar
 

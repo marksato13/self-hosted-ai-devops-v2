@@ -3,6 +3,11 @@
 Este plan convierte la arquitectura de V2 en una instalación comprobada. No se
 avanza de fase si su verificación no pasó.
 
+Estado local al 22 de agosto de 2026: la fase 1 pasó para el Compose de
+desarrollo. Las comprobaciones manuales restantes de la fase 0 y toda la fase 2
+siguen pendientes; esta última requiere iniciar sesión, conectar un proveedor
+autorizado, crear una API key local y ejecutar una tarea inocua.
+
 ## Fase 0 · Base y seguridad
 
 1. Habilitar Docker Desktop → WSL Integration, o preparar una VM Ubuntu 24.04.
@@ -18,7 +23,7 @@ versionados.
 2. Levantar `omniroute` y `agent-canvas` con Compose.
 3. Confirmar que ambos servicios escuchan solo en `127.0.0.1`.
 
-**Verifica:** `docker compose ps`, logs sin reinicios y acceso local a Canvas.
+**Verifica:** `./scripts/verificar-stack.sh`, logs sin reinicios y acceso local a Canvas.
 
 ## Fase 2 · Modelo y tarea inocua
 
