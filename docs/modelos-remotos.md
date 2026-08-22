@@ -39,8 +39,12 @@ Abre `http://localhost:8000/canvas`. En el asistente inicial, o después desde *
 | Modelo personalizado | `openai/<ID exacto publicado por OmniRoute>` |
 | URL base | `http://omniroute:20128/v1` |
 | Clave API | clave local dedicada creada en OmniRoute |
+| API Mode, en la pestaña All | `chat` |
+| Capability Overrides, en la pestaña All | `{"supports_responses_api": false}` |
 
 El prefijo `openai/` indica a OpenHands que use el protocolo OpenAI-compatible. No copies un ejemplo de modelo: sustituye el marcador por el ID que muestre tu propia instancia de OmniRoute. Guarda el perfil y realiza primero una tarea de lectura sin datos sensibles.
+
+El modo `chat` fuerza `/v1/chat/completions`. Con la combinación verificada de Agent Canvas 1.15.0 y OmniRoute 3.8.49, dejar el modo en `auto` puede seleccionar `/v1/responses` y resolver el alias contra un proveedor distinto del conectado.
 
 La URL del navegador (`localhost`) no sirve entre contenedores. Canvas debe usar el nombre DNS del servicio Docker: `omniroute`.
 
