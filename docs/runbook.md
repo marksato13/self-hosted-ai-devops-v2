@@ -5,10 +5,13 @@ Todos los comandos se ejecutan desde la raíz del repositorio.
 ## Estado
 
 ```bash
+./scripts/verificar-stack.sh
 docker compose --env-file .env -f infra/docker-compose.yml ps
 docker compose --env-file .env -f infra/docker-compose.yml logs --tail=100 agent-canvas
 docker compose --env-file .env -f infra/docker-compose.yml logs --tail=100 omniroute
 ```
+
+La verificación automatizada no carga ni muestra claves. Los logs pueden contener datos de solicitudes; revísalos localmente y no los publiques sin sanearlos.
 
 ## Reinicio
 

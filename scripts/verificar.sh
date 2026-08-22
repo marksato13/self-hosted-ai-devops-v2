@@ -10,6 +10,7 @@ requeridos=(
   docs/arquitectura.md docs/instalacion-local.md docs/instalacion-vm.md
   docs/modelos-remotos.md docs/flujos.md docs/proyectos-referencia.md
   docs/patrones-adoptados.md docs/plan-implementacion.md docs/seguridad.md docs/runbook.md
+  scripts/verificar-stack.sh
 )
 
 for archivo in "${requeridos[@]}"; do
