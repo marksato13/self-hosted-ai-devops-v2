@@ -26,11 +26,13 @@ docker compose --env-file .env -f infra/docker-compose.yml restart omniroute
 |---|---|
 | Docker no existe en WSL | integración de Docker Desktop con esa distribución |
 | Canvas no abre | contenedor, puerto 8000 y URL `/canvas` |
-| Backend desconectado | `LOCAL_BACKEND_API_KEY` y logs de Agent Canvas |
+| Canvas responde 502 o el backend está desconectado | permisos de `OPENHANDS_DATA_DIR`, `LOCAL_BACKEND_API_KEY` y logs de Agent Canvas |
 | Modelo no valida | ID exacto, base URL desde el contenedor y API key |
 | OmniRoute devuelve 429 | cuota del proveedor o límite de concurrencia |
 | El agente no ve un proyecto | que esté bajo `PROJECTS_DIR` y abierto como `/projects/...` |
 | RAM agotada | reducir a una tarea, revisar logs y ampliar la VM |
+
+En Linux, si los logs indican `unable to open database file`, instala `acl` y vuelve a ejecutar `./scripts/preparar.sh`. La verificación comprueba tanto la UI pública como el Agent Server interno y fallará mientras el backend no esté disponible.
 
 ## Respaldo
 

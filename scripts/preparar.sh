@@ -48,4 +48,12 @@ PROJECTS_DIR="$(leer_variable PROJECTS_DIR)"
 [[ -n "$OPENHANDS_DATA_DIR" ]] && mkdir -p "$OPENHANDS_DATA_DIR"
 [[ -n "$PROJECTS_DIR" ]] && mkdir -p "$PROJECTS_DIR"
 
+if [[ "$(uname -s)" == "Linux" && -n "$OPENHANDS_DATA_DIR" && -n "$PROJECTS_DIR" ]]; then
+  if command -v setfacl >/dev/null 2>&1; then
+    setfacl -m u:10001:rwx,d:u:10001:rwx "$OPENHANDS_DATA_DIR" "$PROJECTS_DIR"
+  else
+    echo "Aviso: instala acl y vuelve a ejecutar este script para preparar los permisos de Agent Canvas." >&2
+  fi
+fi
+
 echo "Preparación terminada. Revisa .env y no lo agregues a Git."
