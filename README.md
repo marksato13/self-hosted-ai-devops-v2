@@ -56,8 +56,8 @@ Para infraestructura, `plan`, `check` y `diff` pueden automatizarse. `apply`, de
 Requisitos: Docker Engine o Docker Desktop con integración WSL2.
 
 ```bash
-git clone https://github.com/marksato13/self-hosted-ai-devops.git
-cd self-hosted-ai-devops
+git clone https://github.com/marksato13/self-hosted-ai-devops-v2.git
+cd self-hosted-ai-devops-v2
 cp .env.example .env
 ./scripts/preparar.sh
 # Completa .env y luego:

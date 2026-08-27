@@ -39,6 +39,6 @@ estado_salud="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Sta
 
 contenedor_canvas="$("${compose[@]}" ps -q agent-canvas)"
 docker exec "$contenedor_canvas" python -c \
-  'import socket; socket.create_connection(("omniroute", 20128), timeout=5).close()'
+  'import socket; from urllib.request import urlopen; socket.create_connection(("omniroute", 20128), timeout=5).close(); urlopen("http://127.0.0.1:18000/server_info", timeout=5).close()'
 
-echo "Stack activo, saludable, limitado a loopback y con conectividad interna: OK"
+echo "Stack activo, saludable, limitado a loopback y con servicios internos disponibles: OK"

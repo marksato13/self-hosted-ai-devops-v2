@@ -10,7 +10,7 @@ Usa la especificación de [infra/vm-linux.md](../infra/vm-linux.md). Instala Ubu
 
 ```bash
 sudo apt update && sudo apt -y upgrade
-sudo apt install -y ca-certificates curl git openssl ufw
+sudo apt install -y acl ca-certificates curl git openssl ufw
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow OpenSSH
@@ -41,13 +41,14 @@ docker run --rm hello-world
 ```bash
 mkdir -p ~/platform ~/projects
 cd ~/platform
-git clone https://github.com/marksato13/self-hosted-ai-devops.git
-cd self-hosted-ai-devops
+git clone https://github.com/marksato13/self-hosted-ai-devops-v2.git
+cd self-hosted-ai-devops-v2
 cp .env.example .env
-sed -i "s|/home/CAMBIAR|$HOME|g" .env
 ./scripts/preparar.sh
 chmod 600 .env
 ```
+
+`preparar.sh` crea los directorios persistentes y, en Linux, concede al UID `10001` de Agent Canvas acceso mediante ACL sin cambiar su propietario. Si avisa que falta `acl`, instala el paquete y vuelve a ejecutar el script antes de levantar los servicios.
 
 ## 5. Levantar servicios
 
@@ -55,6 +56,7 @@ chmod 600 .env
 docker compose --env-file .env -f infra/docker-compose.yml pull
 docker compose --env-file .env -f infra/docker-compose.yml up -d
 docker compose --env-file .env -f infra/docker-compose.yml ps
+./scripts/verificar-stack.sh
 ```
 
 Para inicio automático, Docker usa `restart: unless-stopped`. Si prefieres que systemd gestione el Compose, instala la plantilla y sustituye su ruta:
