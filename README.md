@@ -4,7 +4,7 @@ Plataforma web para ejecutar agentes de IA sobre proyectos de **desarrollo, infr
 
 Se despliega con Docker tanto en una laptop (Windows + WSL2, Linux o macOS) como en una VM Linux sobre ESXi, Proxmox, Hyper-V u otro hipervisor.
 
-> Estado: rediseño documentado y plantillas preparadas. El despliegue nuevo todavía debe verificarse de punta a punta en una máquina con Docker. No incluye modelos locales, Telegram, OpenClaw, Ollama, LiteLLM ni un enjambre propio de agentes.
+> Estado: Compose validado localmente el 22 de agosto de 2026 con Agent Canvas y OmniRoute activos en loopback. La conexión autenticada de un proveedor y la primera tarea de agente siguen siendo pasos manuales. No incluye modelos locales, Telegram, OpenClaw, Ollama, LiteLLM ni un enjambre propio de agentes.
 
 ## Arquitectura
 
@@ -66,8 +66,6 @@ docker compose --env-file .env -f infra/docker-compose.yml up -d
 
 Abre `http://localhost:8000/canvas`. Después configura el perfil LLM según [modelos remotos](docs/modelos-remotos.md).
 
-En este WSL Docker todavía no está habilitado; activa **Docker Desktop → Settings → Resources → WSL Integration** antes de ejecutar el Compose.
-
 ## Despliegue en una VM Linux
 
 La opción recomendada es Ubuntu Server 24.04 LTS, 4 vCPU, 8 GB de RAM y 50 GB de disco. La VM no necesita GPU porque los modelos son remotos.
@@ -102,6 +100,7 @@ Consulta [instalación en VM](docs/instalacion-vm.md). Mantén los puertos en lo
 
 ```bash
 ./scripts/verificar.sh
+./scripts/verificar-stack.sh
 ```
 
-La validación completa del Compose requiere Docker. Las plantillas fijan OmniRoute por digest; Agent Canvas se deja configurable mediante `OPENHANDS_IMAGE` para poder fijar una versión probada antes de producción.
+La segunda orden comprueba el Compose activo, el estado de ambos servicios, sus publicaciones en loopback y la conectividad interna desde Canvas hacia OmniRoute. Las plantillas fijan OmniRoute por digest; Agent Canvas se deja configurable mediante `OPENHANDS_IMAGE` para poder fijar una versión probada antes de producción.

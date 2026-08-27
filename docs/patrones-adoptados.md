@@ -1,7 +1,8 @@
 # Patrones adoptados
 
-Los patrones siguientes son reglas de diseño para implementar V2. No describen
-funciones ya verificadas: el Compose sigue pendiente de una prueba completa.
+Los patrones siguientes son reglas de diseño para implementar V2. El Compose y
+la conectividad interna se verificaron localmente; la conexión autenticada de un
+proveedor y una tarea completa siguen pendientes.
 
 | Patrón | Referencia | Aplicación en V2 | Límite explícito |
 |---|---|---|---|
